@@ -1,12 +1,21 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useEffect } from 'react'
 import { KeyboardAvoidingView } from 'react-native'
 import { StatusBar, StyleSheet, View, Text } from 'react-native'
 import { Button, Input, Image } from 'react-native-elements'
+import * as localStorageUser from '../services/user/local-storage-user'
 
 const LoginScreen = ({navigation}) => {
 
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
+
+  useEffect(() => {
+    localStorageUser
+      .getUserLocalStorage()
+      .then(userFound => {
+        return userFound && navigation.replace('Home')
+      })
+  }, [localStorageUser, navigation])
 
   const signIn = useCallback(() => {
     alert('oi')

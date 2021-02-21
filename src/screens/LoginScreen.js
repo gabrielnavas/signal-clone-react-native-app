@@ -1,10 +1,13 @@
 import React, { useCallback, useState, useEffect } from 'react'
 import { KeyboardAvoidingView } from 'react-native'
+import { Alert } from 'react-native'
 import { StatusBar, StyleSheet, View, Text } from 'react-native'
 import { Button, Input, Image } from 'react-native-elements'
-import * as localStorageUser from '../services/user/local-storage-user'
 
-const LoginScreen = ({navigation}) => {
+import * as localStorageUser from '../services/user/local-storage-user'
+import loginService from '../services/user/loginUserService.js'
+
+const LoginScreen = ({ navigation }) => {
 
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
@@ -12,14 +15,21 @@ const LoginScreen = ({navigation}) => {
   useEffect(() => {
     localStorageUser
       .getUserLocalStorage()
-      .then((user, token) => 
+      .then(({ user, token }) =>
         user && token && navigation.replace('Home')
       )
   }, [localStorageUser, navigation])
 
   const signIn = useCallback(() => {
-    alert('oi')
-  }, [])
+    loginService({ email, password })
+      .then(({ body, error }) => {
+        if (error) return Alert.alert('Eiii', error)
+        localStorageUser
+          .setUserLocalStorage(body.user, body.token)
+          .then(() => navigation.replace('Home'))
+      })
+      .catch((error) => Alert.alert('deu ruim =('))
+  }, [email, password, localStorageUser])
 
   return (
     <KeyboardAvoidingView behavior='height' style={styles.container}>
@@ -46,16 +56,16 @@ const LoginScreen = ({navigation}) => {
         />
       </View>
 
-      <Button 
-        containerStyle={styles.button} 
-        onPress={signIn} 
-        title='Login' 
+      <Button
+        containerStyle={styles.button}
+        onPress={signIn}
+        title='Login'
       />
-      <Button 
-        onPress={() => navigation.navigate('Register')} 
-        containerStyle={styles.button} 
-        type='outline' 
-        title='Register' 
+      <Button
+        onPress={() => navigation.navigate('Register')}
+        containerStyle={styles.button}
+        type='outline'
+        title='Register'
       />
     </KeyboardAvoidingView>
   )

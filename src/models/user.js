@@ -20,3 +20,7 @@ export const makeUser = userParams => {
   }
   return userMaked
 }
+
+export const makeUserLogin = ({email, password}) => ({
+  email, password
+})

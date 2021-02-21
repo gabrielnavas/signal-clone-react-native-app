@@ -4,7 +4,7 @@ import { KeyboardAvoidingView, StyleSheet, View, Dimensions } from 'react-native
 import { Input, Button, Text } from 'react-native-elements'
 
 import * as localStorageUser from '../services/user/local-storage-user'
-import registerUser from '../services/user/registerUser'
+import registerUser from '../services/user/registerUserService'
 
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState('')
@@ -12,10 +12,10 @@ const RegisterScreen = ({ navigation }) => {
   const [password, setPassword] = useState('')
   const [imageURL, setImageURL] = useState('')
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     localStorageUser
       .getUserLocalStorage()
-      .then(userFound => userFound && navigation.replace('Home'))
+      .then(({user}) => user && navigation.replace('Home'))
   }, [localStorageUser, navigation])
 
   useLayoutEffect(() => {

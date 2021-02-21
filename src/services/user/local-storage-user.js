@@ -54,18 +54,8 @@ const logoff = async () => {
   }
 }
 
-const clearAll = async () => {
-  try {
-    await AsyncStorage.clear()
-  }
-  catch(error) {
-    console.error(error)
-  }
-}
-
 export {
   getUserLocalStorage,
   setUserLocalStorage,
   logoff,
-  clearAll
 }

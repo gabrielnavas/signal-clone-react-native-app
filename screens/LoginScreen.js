@@ -22,7 +22,7 @@ const LoginScreen = ({navigation}) => {
   }, [])
 
   return (
-    <KeyboardAvoidingView behavior='padding' style={styles.container}>
+    <KeyboardAvoidingView behavior='height' style={styles.container}>
       <StatusBar style='light' />
       <Image source={{
         uri: 'https://blog.mozilla.org/internetcitizen/files/2018/08/signal-logo.png',

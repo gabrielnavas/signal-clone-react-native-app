@@ -15,9 +15,7 @@ const RegisterScreen = ({ navigation }) => {
   useEffect(() => {
     localStorageUser
       .getUserLocalStorage()
-      .then(userFound => {
-        return userFound && navigation.replace('Home')
-      })
+      .then(userFound => userFound && navigation.replace('Home'))
   }, [localStorageUser, navigation])
 
   useLayoutEffect(() => {

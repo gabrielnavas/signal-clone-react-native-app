@@ -12,9 +12,9 @@ const LoginScreen = ({navigation}) => {
   useEffect(() => {
     localStorageUser
       .getUserLocalStorage()
-      .then(userFound => {
-        return userFound && navigation.replace('Home')
-      })
+      .then((user, token) => 
+        user && token && navigation.replace('Home')
+      )
   }, [localStorageUser, navigation])
 
   const signIn = useCallback(() => {

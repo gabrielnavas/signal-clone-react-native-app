@@ -16,7 +16,12 @@ export default async (userParams) => {
   if (responseHttp.status !== 200) {
     return { error: await responseHttp.json() }
   }
-  const json = await responseHttp.json()
-  const userWithToken = makeUserWithToken(user, json)
-  return { body: userWithToken }
+  const token = await responseHttp.json()
+
+  return {
+    body: {
+      user,
+      token
+    }
+  }
 }

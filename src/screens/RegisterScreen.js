@@ -26,18 +26,21 @@ const RegisterScreen = ({ navigation }) => {
 
   const register = useCallback(async () => {
     try {
-      const { body, error } = await registerUser({
+      const registerParams = {
         name,
         email,
         password,
         imageURL
-      })
+      }
+      const { body, error } = await registerUser(registerParams)
       if (error) {
         Alert.alert('has error =(', error)
         return
       }
-      localStorageUser.setUserLocalStorage(body).then().catch()
-      navigation.replace('Home')
+      localStorageUser
+        .setUserLocalStorage(body.user, body.token)
+        .then(() => navigation.replace('Home'))
+        .catch()
     }
     catch (error) {
       console.error(error)

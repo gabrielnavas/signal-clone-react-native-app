@@ -1,15 +1,21 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { makeUserWithToken, makeUser } from '../../models/user'
+import { makeUser } from '../../models/user'
 
-const userKeyName = '@UserKey'
+const userDataKey = '@UserDataKey'
+const userTokenKey = '@UserTokenKey'
 
 const getUserLocalStorage = async () => {
   try {
-    const userString = await AsyncStorage.getItem(userKeyName)
-    const user = JSON.parse(userString)
+    const user = await AsyncStorage.getItem(userDataKey)
+    const token = await AsyncStorage.getItem(userTokenKey)
     if (!user) return undefined
-    return makeUserWithToken(user)
+    const userObj = JSON.parse(user)
+    const tokenObj = JSON.parse(token)
+    return {
+      user: userObj,
+      token: tokenObj
+    }
   }
   catch (error) {
     console.error(error)
@@ -17,8 +23,9 @@ const getUserLocalStorage = async () => {
   }
 }
 
-const setUserLocalStorage = async user => {
+const setUserLocalStorage = async (user, token) => {
   try {
+    if(!user || !token) return 
     const userClearUndefinedNull = Object
       .entries(user)
       .reduce((objFinal, obj) => {
@@ -27,8 +34,10 @@ const setUserLocalStorage = async user => {
         }
         return objFinal
       }, {})
-    const userString = JSON.stringify(userClearUndefinedNull)
-    await AsyncStorage.setItem(userKeyName, userString)
+      const userString = JSON.stringify(userClearUndefinedNull)
+      const tokenString = JSON.stringify(token)
+      await AsyncStorage.setItem(userDataKey, userString)
+      await AsyncStorage.setItem(userTokenKey, tokenString)
   }
   catch (error) {
     console.error(error)
@@ -37,9 +46,19 @@ const setUserLocalStorage = async user => {
 
 const logoff = async () => {
   try {
-    await AsyncStorage.setItem(userKeyName, JSON.stringify(false))
+    await AsyncStorage.setItem(userDataKey, JSON.stringify(false))
+    await AsyncStorage.setItem(userTokenKey, JSON.stringify(false))
   }
   catch (error) {
+    console.error(error)
+  }
+}
+
+const clearAll = async () => {
+  try {
+    await AsyncStorage.clear()
+  }
+  catch(error) {
     console.error(error)
   }
 }
@@ -47,5 +66,6 @@ const logoff = async () => {
 export {
   getUserLocalStorage,
   setUserLocalStorage,
-  logoff
+  logoff,
+  clearAll
 }

@@ -49,10 +49,11 @@ const LoginScreen = ({ navigation }) => {
         />
         <Input
           value={password}
-          onChangeText={text => setPassword(text)}
           secureTextEntry
           placeholder='Password'
           type='password'
+          onChangeText={text => setPassword(text)}
+          onSubmitEditing={signIn}
         />
       </View>
 

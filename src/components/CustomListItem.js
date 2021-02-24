@@ -5,7 +5,7 @@ import { ListItem, Avatar } from 'react-native-elements'
 
 const CustomListItem = ({ id, chatName, enterChat }) => {
   return (
-    <ListItem>
+    <ListItem onPress={() => enterChat(id, chatName)}>
       <Avatar
         rounded
         source={{
@@ -19,7 +19,7 @@ const CustomListItem = ({ id, chatName, enterChat }) => {
         <ListItem.Subtitle
           numberOfLines={1}
           ellipsizeMode="clip">
-          {enterChat}
+          <Text>hello</Text>
         </ListItem.Subtitle>
       </ListItem.Content>
     </ListItem>

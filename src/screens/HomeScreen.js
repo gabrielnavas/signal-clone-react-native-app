@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import { SafeAreaView, StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
 import { Avatar } from 'react-native-elements'
 import { AntDesign, SimpleLineIcons } from '@expo/vector-icons'
@@ -40,7 +40,7 @@ const HomeScreen = ({ navigation }) => {
     const afterGetUser = ({ user }) => {
       setUser(user)
       navigation.setOptions({
-        title: "Signal",
+        title: "Home",
         headerLeft: null,
         headerStyle: { backgroundColor: '#fff' },
         headerTitleStyle: { color: 'black' },
@@ -83,17 +83,24 @@ const HomeScreen = ({ navigation }) => {
   }, [])
 
 
+  const handleEnterChat = useCallback((id, chatName) => {
+    navigation.navigate('ChatScreen', {
+      id, 
+      chatName
+    })
+  })
+
 
   return (
     <SafeAreaView>
-      <ScrollView>
+      <ScrollView style={styles.container}>
         {
           chatsItems?.length > 0 && chatsItems.map(chat => (
             <CustomListItem
               key={chat.id}
+              enterChat={handleEnterChat}
               id={chat.id}
               chatName={chat.nameChat}
-              enterChat='ultimas msgs'
             />)
           )
         }
@@ -104,4 +111,8 @@ const HomeScreen = ({ navigation }) => {
 
 export default HomeScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    height: '100%',
+  }
+})

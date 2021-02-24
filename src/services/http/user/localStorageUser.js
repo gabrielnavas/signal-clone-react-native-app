@@ -1,7 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { makeUser } from '../../models/user'
-
 const userDataKey = '@UserDataKey'
 const userTokenKey = '@UserTokenKey'
 

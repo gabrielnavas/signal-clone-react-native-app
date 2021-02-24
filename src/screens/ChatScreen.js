@@ -1,12 +1,25 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react'
+import {
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Platform,
+  KeyboardAvoidingView,
+  SafeAreaView,
+  ScrollView,
+  TextInput,
+  TouchableWithoutFeedback,
+  Keyboard
+} from 'react-native'
 import { Avatar } from 'react-native-elements'
 import { AntDesign, FontAwesome, Ionicons } from '@expo/vector-icons'
 
-import { getUserLocalStorage } from '../services/user/local-storage-user'
-import { SafeAreaView } from 'react-native'
-import { StatusBar } from 'react-native'
-import { KeyboardAvoidingView } from 'react-native'
+import { getUserLocalStorage } from '../services/http/user/localStorageUser'
+// import sendMessageSocket from '../services/socket/message/sendMessageSocket'
+import { getSocket } from '../services/helpers/socket'
+
 
 const HeaderTitleComponent = ({ chatName }) =>
   <View
@@ -53,16 +66,23 @@ const HeaderRightComponent = () =>
     </TouchableOpacity>
   </View>
 
+let socket
 
 const ChatScreen = ({ route, navigation }) => {
 
   const [idChat, setIdChat] = useState('')
   const [chatName, setChatName] = useState('')
+  const [messageInput, setMessageInput] = useState('')
+
+  useEffect(() => {
+    socket = getSocket()
+  }, [])
 
   useEffect(() => {
     const { id, chatName } = route.params
     setIdChat(id)
     setChatName(chatName)
+
   }, [route.params])
 
   useLayoutEffect(() => {
@@ -80,13 +100,44 @@ const ChatScreen = ({ route, navigation }) => {
       headerLeft: () => <HeaderLeftComponent navigation={navigation} />,
       headerRight: () => <HeaderRightComponent />,
     })
-  })
+  }, [])
+
+  const sendMessage = useCallback(() => {
+    Keyboard.dismiss()
+    console.log(messageInput);
+    socket.emit('sendMessage', {messageInput: messageInput}, () => {
+      // setMessageInput('')
+      console.log('call back chamando');
+    })
+  }, [messageInput])
 
   return (
     <SafeAreaView>
       <StatusBar style='light' />
-      <KeyboardAvoidingView>
-        
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+        keyboardVerticalOffset={90}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <>
+            <ScrollView></ScrollView>
+            <View style={styles.footer}>
+              <TextInput
+                style={styles.textInput}
+                placeholder='Say something'
+                value={messageInput}
+                onChangeText={text => setMessageInput(text)}
+                onSubmitEditing={sendMessage}
+              />
+              <TouchableOpacity
+                onPress={sendMessage}
+                activeOpacity={0.5}>
+                <Ionicons name='send' size={24} color='#2b68e6' />
+              </TouchableOpacity>
+            </View>
+          </>
+        </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
     </SafeAreaView>
   )
@@ -94,4 +145,27 @@ const ChatScreen = ({ route, navigation }) => {
 
 export default ChatScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    // flex: 1,
+    height: '100%',
+  },
+  footer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    padding: 15,
+  },
+  textInput: {
+    bottom: 0,
+    height: 40,
+    flex: 1,
+    marginRight: 15,
+    borderColor: 'transparent',
+    backgroundColor: '#ececec',
+    borderWidth: 1,
+    padding: 10,
+    color: 'gray',
+    borderRadius: 30,
+  }
+})

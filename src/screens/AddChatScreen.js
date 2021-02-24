@@ -3,12 +3,15 @@ import { Alert } from 'react-native'
 import { StyleSheet, View } from 'react-native'
 import { Input, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import newChatService from '../services/chat/newChatService'
-import { logoff, getUserLocalStorage } from '../services/user/local-storage-user'
+
+import newChatService from '../services/http/chat/newChatService'
+import { logoff, getUserLocalStorage } from '../services/http/user/localStorageUser'
+
 
 const AddChatScreen = ({ navigation }) => {
 
   const [nameChat, setNameChat] = useState('')
+
 
   useLayoutEffect(() => {
     // logoff().then()

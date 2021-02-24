@@ -3,8 +3,8 @@ import { Alert } from 'react-native'
 import { KeyboardAvoidingView, StyleSheet, View, Dimensions } from 'react-native'
 import { Input, Button, Text } from 'react-native-elements'
 
-import * as localStorageUser from '../services/user/local-storage-user'
-import registerUser from '../services/user/registerUserService'
+import * as localStorageUser from '../services/http/user/localStorageUser'
+import registerUser from '../services/http/user/registerUserService'
 
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState('')

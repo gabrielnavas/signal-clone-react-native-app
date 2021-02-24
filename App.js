@@ -18,6 +18,9 @@ const globalScreenOptions = {
 }
 
 export default function App() {
+
+  window.navigator.userAgent = 'react-native';
+
   return (
     <NavigationContainer >
       <Stack.Navigator

@@ -1,14 +1,16 @@
-import env from '../../../env'
+import env from '../../../../env'
 
-export default async ({ token }) => {
+export default async ({ token, nameChat, }) => {
   const pathURL = `${env.backend_point}/chat`
+  const payload = { nameChat }
   const responseHttp = await fetch(pathURL, {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       authorization: `Bearer ${token}`
     },
-    method: "GET",
+    method: "POST",
+    body: JSON.stringify(payload)
   })
 
   if (responseHttp.status !== 200) {
@@ -16,8 +18,9 @@ export default async ({ token }) => {
     return { error }
   }
   const resp = await responseHttp.json()
-  const chatsList = resp.body
+  console.log(resp.body);
+  const newChat = resp.body
   return {
-    body: chatsList
+    body: newChat
   }
 }

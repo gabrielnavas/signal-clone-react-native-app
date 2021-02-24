@@ -1,5 +1,5 @@
-import env from '../../../env'
-import { makeUser } from '../../models/user'
+import env from '../../../../env'
+import { makeUser } from '../../../models/user'
 
 
 export default async (userParams) => {

@@ -4,21 +4,19 @@ import { Avatar } from 'react-native-elements'
 import { AntDesign, SimpleLineIcons } from '@expo/vector-icons'
 import { Alert } from 'react-native'
 
-import * as userAsyncStorage from '../services/user/local-storage-user'
-import { getUserLocalStorage } from '../services/user/local-storage-user'
+import { getUserLocalStorage, logoff } from '../services/http/user/localStorageUser'
 
 import CustomListItem from '../components/CustomListItem'
-import getAllChatsService from '../services/chat/getAllChatsService'
+import getAllChatsService from '../services/http/chat/getAllChatsService'
+
 
 const HomeScreen = ({ navigation }) => {
-
   const [chatsItems, setChatsItems] = useState([])
   const [user, setUser] = useState({})
 
   useEffect(() => {
     getUserLocalStorage()
       .then(({ user, token }) => {
-        // console.log('asdasd')
         getAllChatsService({ token })
           .then(({ body, error }) => {
             if (error) {
@@ -30,9 +28,8 @@ const HomeScreen = ({ navigation }) => {
   }, [])
 
   useLayoutEffect(() => {
-    // userAsyncStorage.logoff().then()
-    userAsyncStorage
-      .getUserLocalStorage()
+    // logoff().then()
+    getUserLocalStorage()
       .then(({ user }) => !user && navigation.navigate('Login'))
   }, [])
 
@@ -79,13 +76,13 @@ const HomeScreen = ({ navigation }) => {
         )
       })
     }
-    userAsyncStorage.getUserLocalStorage().then(afterGetUser)
+    getUserLocalStorage().then(afterGetUser)
   }, [])
 
 
   const handleEnterChat = useCallback((id, chatName) => {
     navigation.navigate('ChatScreen', {
-      id, 
+      id,
       chatName
     })
   })

@@ -4,8 +4,8 @@ import { Alert } from 'react-native'
 import { StatusBar, StyleSheet, View, Text } from 'react-native'
 import { Button, Input, Image } from 'react-native-elements'
 
-import * as localStorageUser from '../services/user/local-storage-user'
-import loginService from '../services/user/loginUserService.js'
+import * as localStorageUser from '../services/http/user/localStorageUser'
+import loginService from '../services/http/user/loginUserService.js'
 
 const LoginScreen = ({ navigation }) => {
 

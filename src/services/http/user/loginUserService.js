@@ -1,5 +1,5 @@
-import env from '../../../env'
-import { makeUserLogin } from '../../models/user'
+import env from '../../../../env'
+import { makeUserLogin } from '../../../models/user'
 
 export default async ({ email, password }) => {
   const pathURL = `${env.backend_point}/login`

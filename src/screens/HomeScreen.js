@@ -36,7 +36,7 @@ const HomeScreen = ({ navigation }) => {
         ),
         headerRight: () => (
           <View style={{
-            flexDirection: 'row', 
+            flexDirection: 'row',
             justifyContent: 'space-between',
             width: 80,
             marginRight: 20
@@ -48,8 +48,8 @@ const HomeScreen = ({ navigation }) => {
                 color='black'
               />
             </TouchableOpacity>
-            <TouchableOpacity 
-              onPress={() => navigation.navigate('AddChat')}  
+            <TouchableOpacity
+              onPress={() => navigation.navigate('AddChat')}
               activeOpacity={0.5}>
               <SimpleLineIcons
                 name='pencil'
@@ -61,10 +61,10 @@ const HomeScreen = ({ navigation }) => {
         )
       })
     }
-    userAsyncStorage
-      .getUserLocalStorage()
-      .then(afterGetUser)
+    userAsyncStorage.getUserLocalStorage().then(afterGetUser)
   }, [])
+
+
 
   return (
     <SafeAreaView>

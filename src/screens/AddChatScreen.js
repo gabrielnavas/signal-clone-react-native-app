@@ -1,14 +1,34 @@
 import React, { useCallback, useLayoutEffect, useState } from 'react'
+import { Alert } from 'react-native'
 import { StyleSheet, View } from 'react-native'
-import {Input, Button} from 'react-native-elements'
+import { Input, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import newChatService from '../services/chat/newChatService'
+import { logoff, getUserLocalStorage } from '../services/user/local-storage-user'
 
-const AddChatScreen = ({navigation}) => {
+const AddChatScreen = ({ navigation }) => {
 
-  const [input, setInput] = useState('')
+  const [nameChat, setNameChat] = useState('')
+
+  useLayoutEffect(() => {
+    // logoff().then()
+    getUserLocalStorage()
+      .then(({ user }) => !user && navigation.replace('Login'))
+  }, [])
 
   const createChat = useCallback(() => {
-  }, [])
+    getUserLocalStorage()
+      .then(({ user, token }) => {
+        newChatService({ token, nameChat })
+          .then(({ error, body }) => {
+            if (error) {
+              return Alert.alert('xii, deu problema', error)
+            }
+            navigation.replace('Home')
+          })
+      })
+      .catch(({ error }) => Alert.alert('xiii, teve problemas', error))
+  }, [nameChat, getUserLocalStorage])
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -19,16 +39,16 @@ const AddChatScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Input 
+      <Input
         placeholder='Enter a chat name'
-        value={input}
-        onChangeText={text => setInput(text)}
+        value={nameChat}
+        onChangeText={text => setNameChat(text)}
         leftIcon={
           <Icon name='wechat' type='antdesign' size={24} color='black' />
         }
         onSubmitEditing={createChat}
       />
-      <Button 
+      <Button
         onPress={createChat}
         title='Create new Chat'
       />

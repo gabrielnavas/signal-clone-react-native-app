@@ -2,14 +2,33 @@ import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { SafeAreaView, StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
 import { Avatar } from 'react-native-elements'
 import { AntDesign, SimpleLineIcons } from '@expo/vector-icons'
+import { Alert } from 'react-native'
 
 import * as userAsyncStorage from '../services/user/local-storage-user'
+import { getUserLocalStorage } from '../services/user/local-storage-user'
 
 import CustomListItem from '../components/CustomListItem'
+import getAllChatsService from '../services/chat/getAllChatsService'
 
 const HomeScreen = ({ navigation }) => {
 
+  const [chatsItems, setChatsItems] = useState([])
   const [user, setUser] = useState({})
+
+  useEffect(() => {
+    getUserLocalStorage()
+      .then(({ user, token }) => {
+        // console.log('asdasd')
+        getAllChatsService({ token })
+          .then(({ body, error }) => {
+            if (error) {
+              return Alert.alert('ops!', error)
+            }
+            setChatsItems(body)
+            console.log('qqqqqqqq');
+          })
+      })
+  }, [])
 
   useLayoutEffect(() => {
     // userAsyncStorage.logoff().then()
@@ -69,7 +88,16 @@ const HomeScreen = ({ navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <CustomListItem />
+        {
+          chatsItems?.length > 0 && chatsItems.map(chat => (
+            <CustomListItem
+              key={chat.id}
+              id={chat.id}
+              chatName={chat.nameChat}
+              enterChat='ultimas msgs'
+            />)
+          )
+        }
       </ScrollView>
     </SafeAreaView>
   )

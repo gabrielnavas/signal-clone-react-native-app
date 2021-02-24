@@ -40,6 +40,7 @@ const AddChatScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Input
+        autoFocus
         placeholder='Enter a chat name'
         value={nameChat}
         onChangeText={text => setNameChat(text)}

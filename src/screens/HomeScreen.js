@@ -25,7 +25,6 @@ const HomeScreen = ({ navigation }) => {
               return Alert.alert('ops!', error)
             }
             setChatsItems(body)
-            console.log('qqqqqqqq');
           })
       })
   }, [])

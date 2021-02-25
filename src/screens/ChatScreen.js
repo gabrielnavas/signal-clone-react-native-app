@@ -17,8 +17,9 @@ import { Avatar } from 'react-native-elements'
 import { AntDesign, FontAwesome, Ionicons } from '@expo/vector-icons'
 
 import { getUserLocalStorage } from '../services/http/user/localStorageUser'
-// import sendMessageSocket from '../services/socket/message/sendMessageSocket'
+import * as sendMessageSocket from '../services/socket/message/sendMessageSocket'
 import { getSocket } from '../services/helpers/socket'
+import { Alert } from 'react-native'
 
 
 const HeaderTitleComponent = ({ chatName }) =>
@@ -73,6 +74,7 @@ const ChatScreen = ({ route, navigation }) => {
   const [idChat, setIdChat] = useState('')
   const [chatName, setChatName] = useState('')
   const [messageInput, setMessageInput] = useState('')
+  const [user, setUser] = useState({})
 
   useEffect(() => {
     socket = getSocket()
@@ -83,12 +85,16 @@ const ChatScreen = ({ route, navigation }) => {
     setIdChat(id)
     setChatName(chatName)
 
-  }, [route.params])
+  }, [route.params, getUserLocalStorage])
 
   useLayoutEffect(() => {
-    // userAsyncStorage.logoff().then()
+    // logoff().then()
     getUserLocalStorage()
-      .then(({ user }) => !user && navigation.navigate('Login'))
+      .then(({ user }) => {
+        if (!user) {
+          navigation.navigate('Login')
+        } else setUser(user)
+      })
   }, [])
 
   useLayoutEffect(() => {
@@ -104,11 +110,17 @@ const ChatScreen = ({ route, navigation }) => {
 
   const sendMessage = useCallback(() => {
     Keyboard.dismiss()
-    console.log(messageInput);
-    socket.emit('sendMessage', {messageInput: messageInput}, () => {
-      // setMessageInput('')
-      console.log('call back chamando');
-    })
+    const payload = { idChat, userId: user.id, messageText: messageInput }
+    const sendToAllClientsCallback = ({ body, error }) => {
+      if (error) {
+        Alert.alert('xiii', error)
+        // sendMessageSocket.failure(socket)()
+        return
+      }
+      sendMessageSocket.success(socket)({ secretKey: body.secretKey })
+    }
+    sendMessageSocket.request(socket)(payload, sendToAllClientsCallback)
+    setMessageInput('')
   }, [messageInput])
 
   return (

@@ -1,15 +1,11 @@
-import { socket } from '../../helpers/socket'
+export const request = socket => ({ idChat, userId, messageText }, callback) => {
+  socket.emit('sendMessageRequest', { idChat, userId, messageText }, callback)
+}
 
-export default ({ idChat, userId, messageText }) => {
-  socket.on('connect', () => {
-    console.log('oiii')
-    // const response = ({ status, body }) => {
-    //   if (status === 200) {
-    //     console.log(body);
-    //   }
-    //   return body
-    // }
-    // socket.on('sendMessage', { idChat, userId, messageText, response})
-    socket.emit('sendMessage', { messageText })
-  })
+export const success = socket => ({ secretKey }) => {
+  socket.emit('sendMessageSuccess', { secretKey })
+}
+
+export const failure = socket => () => {
+  socket.emit('sendMessageFailure')
 }

@@ -11,15 +11,16 @@ import {
   ScrollView,
   TextInput,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
+  Alert
 } from 'react-native'
 import { Avatar } from 'react-native-elements'
 import { AntDesign, FontAwesome, Ionicons } from '@expo/vector-icons'
 
-import { getUserLocalStorage } from '../services/http/user/localStorageUser'
-import * as sendMessageSocket from '../services/socket/message/sendMessageSocket'
+import { getUserLocalStorage, logoff } from '../services/http/user/localStorageUser'
 import { getSocket } from '../services/helpers/socket'
-import { Alert } from 'react-native'
+import * as sendMessageSocket from '../services/socket/message/sendMessageSocket'
+import { receiveMessageForAllSocket } from '../services/socket/message/receiveMessageForAllSocket'
 
 
 const HeaderTitleComponent = ({ chatName }) =>
@@ -75,21 +76,13 @@ const ChatScreen = ({ route, navigation }) => {
   const [chatName, setChatName] = useState('')
   const [messageInput, setMessageInput] = useState('')
   const [user, setUser] = useState({})
+  const [messages, setMessages] = useState([])
 
-  useEffect(() => {
-    socket = getSocket()
-    // return () => {
-    //   socket.emit('disconnect')
-    //   socket.off()
-    // }
-  }, [])
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     const { id, chatName } = route.params
     setIdChat(id)
     setChatName(chatName)
-
-  }, [route.params, getUserLocalStorage])
+  }, [])
 
   useLayoutEffect(() => {
     // logoff().then()
@@ -112,20 +105,59 @@ const ChatScreen = ({ route, navigation }) => {
     })
   }, [])
 
+  useEffect(() => {
+    socket = getSocket()
+  }, [])
+
+  useEffect(() => {
+    socket.emit('joinChat', {
+      idChat,
+      user: { id: user.id, name: user.name }
+    })
+  }, [])
+
+  useEffect(() => {
+    socket.on('joinChat', user => {
+      setMessages([{
+        id: user.id,
+        name: user.name,
+        message: 'join in the room'
+      },
+      ...messages
+      ])
+    })
+    socket.on('disconnectChat', user => {
+      setMessages([{
+        id: user.id,
+        name: user.name,
+        message: 'left...'
+      },
+      ...messages
+      ])
+    })
+    return () => {
+      socket.emit('disconnectChat', {
+        idChat,
+        user: { id: user.id, name: user.name }
+      })
+      socket.off()
+    }
+  }, [])
+
   const sendMessage = useCallback(() => {
     Keyboard.dismiss()
     const payload = { idChat, userId: user.id, messageText: messageInput }
-    const sendToAllClientsCallback = ({ body, error }) => {
-      if (error) {
-        Alert.alert('xiii', error)
-        // sendMessageSocket.failure(socket)()
-        return
-      }
-      sendMessageSocket.success(socket)({ secretKey: body.secretKey })
-    }
-    sendMessageSocket.request(socket)(payload, sendToAllClientsCallback)
-    setMessageInput('')
-  }, [messageInput])
+    // const sendToAllClientsCallback = ({ body, error }) => {
+    //   if (error) {
+    //     Alert.alert('xiii', error)
+    //     // sendMessageSocket.failure(socket)()
+    //     return
+    //   }
+    //   sendMessageSocket.success(socket)(body)
+    // }
+    // sendMessageSocket.request(socket)(payload, sendToAllClientsCallback)
+    // setMessageInput('')
+  }, [Keyboard])
 
   return (
     <SafeAreaView>
@@ -137,7 +169,16 @@ const ChatScreen = ({ route, navigation }) => {
       >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <>
-            <ScrollView></ScrollView>
+            <ScrollView>
+              {
+                messages.map(({ userId, messageText, id }, index) => (
+                  <View key={index}>
+                    <Text>{userId}</Text>
+                    <Text>{messageText}</Text>
+                  </View>
+                ))
+              }
+            </ScrollView>
             <View style={styles.footer}>
               <TextInput
                 style={styles.textInput}

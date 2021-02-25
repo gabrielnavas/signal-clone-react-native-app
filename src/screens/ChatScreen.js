@@ -78,6 +78,10 @@ const ChatScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     socket = getSocket()
+    // return () => {
+    //   socket.emit('disconnect')
+    //   socket.off()
+    // }
   }, [])
 
   useEffect(() => {

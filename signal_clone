@@ -1,1 +1,115 @@
-<mxfile host="app.diagrams.net" modified="2021-02-26T17:56:49.768Z" agent="5.0 (X11)" version="14.4.3" etag="QEEoGwQXDG5jH3TTBc4f" type="github"><diagram id="HRtnxPqRu9zhJn8g710Z">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2021-02-26T18:19:12.451Z" agent="5.0 (X11)" etag="PsTY3cFj2Ks2SeqG9Iyb" version="14.4.3" type="github">
+  <diagram id="HRtnxPqRu9zhJn8g710Z" name="Page-1">
+    <mxGraphModel dx="860" dy="529" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="80" width="730" height="350" as="geometry" />
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-2" value="&lt;h1&gt;&lt;b&gt;Chat&lt;/b&gt;&lt;/h1&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="670" y="80" width="70" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-3" value="&lt;b&gt;Client N&lt;br&gt;&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="110" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-4" value="&lt;b&gt;Client 02&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="150" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="t6-X0X4ZGAMPcSiuJ6yv-5" target="t6-X0X4ZGAMPcSiuJ6yv-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="230" y="198.75" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-20" value="&lt;b&gt;1 - Sending Any Message&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="t6-X0X4ZGAMPcSiuJ6yv-15">
+          <mxGeometry x="0.0301" y="-1" relative="1" as="geometry">
+            <mxPoint x="-39" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="t6-X0X4ZGAMPcSiuJ6yv-5" target="t6-X0X4ZGAMPcSiuJ6yv-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="130" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-25" value="&lt;b&gt;5 - OK, Send to all&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="t6-X0X4ZGAMPcSiuJ6yv-24">
+          <mxGeometry x="0.3909" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-5" value="&lt;b&gt;Client 01 Sender&lt;br&gt;&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="190" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="t6-X0X4ZGAMPcSiuJ6yv-6" target="t6-X0X4ZGAMPcSiuJ6yv-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-18" value="&lt;b&gt;2 - Write Msg DB&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="t6-X0X4ZGAMPcSiuJ6yv-9">
+          <mxGeometry x="0.0717" y="-2" relative="1" as="geometry">
+            <mxPoint x="-75" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="290" y="305" as="sourcePoint" />
+            <mxPoint x="115" y="205" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="115" y="305" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-23" value="&lt;b&gt;4 - Send to me my Message&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="t6-X0X4ZGAMPcSiuJ6yv-21">
+          <mxGeometry x="-0.5373" y="4" relative="1" as="geometry">
+            <mxPoint x="-31" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="t6-X0X4ZGAMPcSiuJ6yv-6" target="t6-X0X4ZGAMPcSiuJ6yv-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="155" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-29" value="&lt;b&gt;5 - Send msg to all clients&lt;br&gt;&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="t6-X0X4ZGAMPcSiuJ6yv-27">
+          <mxGeometry x="-0.0704" relative="1" as="geometry">
+            <mxPoint x="-50" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="t6-X0X4ZGAMPcSiuJ6yv-6" target="t6-X0X4ZGAMPcSiuJ6yv-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="120" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-30" value="&lt;b&gt;5 - Send msg to all clients&lt;br&gt;&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="t6-X0X4ZGAMPcSiuJ6yv-28">
+          <mxGeometry x="0.1463" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-6" value="&lt;b&gt;Server&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="t6-X0X4ZGAMPcSiuJ6yv-8" target="t6-X0X4ZGAMPcSiuJ6yv-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="610" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-17" value="&lt;b&gt;3 - OK!&lt;/b&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="t6-X0X4ZGAMPcSiuJ6yv-10">
+          <mxGeometry x="-0.1814" y="-1" relative="1" as="geometry">
+            <mxPoint x="-59" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t6-X0X4ZGAMPcSiuJ6yv-8" value="&lt;b&gt;Data Base&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="120" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
